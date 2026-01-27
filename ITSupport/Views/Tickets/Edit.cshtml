@@ -1,0 +1,35 @@
+@model ITSupport.Models.Ticket
+
+<h2>Edit Ticket</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="TicketId" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-select"></select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Priority</label>
+        <select asp-for="PriorityId" asp-items="ViewBag.PriorityId" class="form-select"></select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select asp-for="Status" asp-items="ViewBag.StatusList" class="form-select"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Ticket</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

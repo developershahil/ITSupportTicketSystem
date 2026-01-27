@@ -1,0 +1,49 @@
+@model IEnumerable<ITSupport.Models.Ticket>
+
+<h2>Tickets</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create Ticket</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Category?.CategoryName</td>
+            <td>@item.Priority?.PriorityName</td>
+            <td>@item.Status</td>
+            <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+            <td>
+    <a asp-action="Edit"
+       asp-route-id="@item.TicketId"
+       class="btn btn-sm btn-warning">
+        Edit
+    </a>
+
+    @if (Context.Session.GetString("UserRole") == "Admin")
+    {
+        <a asp-action="Assign"
+           asp-route-id="@item.TicketId"
+           class="btn btn-sm btn-info ms-1">
+            Assign
+        </a>
+    }
+</td>
+
+        </tr>
+}
+    </tbody>
+</table>
