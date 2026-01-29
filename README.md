@@ -1,101 +1,171 @@
-# 🛠️ IT Support Ticket Management System
+# 🎫 IT Support Ticket System (ASP.NET Core MVC)
 
-A web-based **IT Support Ticket Management System** built using **ASP.NET Core MVC**.  
-This application helps organizations manage internal IT support requests where users raise tickets, admins assign technicians, and technicians resolve issues efficiently.
-
----
-
-## 📌 Features
-
-### 👥 User Roles
-- **User** – Create and track IT support tickets
-- **Admin** – Assign tickets to technicians
-- **Technician** – Resolve and close tickets
+A role-based **IT Support Ticket Management System** built using **ASP.NET Core MVC**, **Entity Framework Core**, and **SQLite**.  
+This project simulates a real-world IT support workflow with **Support**, **Technician**, and **Admin** roles.
 
 ---
 
-### 🎫 Ticket Management
-- Create support tickets
-- Categories: Hardware, Software, Network
-- Priority levels: Low, Medium, High
-- Ticket lifecycle:
-  Open → Assigned → In Progress → Resolved → Closed
+## 🚀 Features
+
+### 🔐 Role-Based Access
+- **Support**
+  - Create tickets
+  - View own tickets only
+
+- **Technician**
+  - View assigned tickets
+  - Update ticket status
+  - Add resolution notes
+  - Close tickets
+
+- **Admin**
+  - View all tickets
+  - Assign tickets to technicians
+  - Manage ticket workflow
 
 ---
 
-## 🧩 Core Modules
-- Authentication & Authorization
-- Ticket Creation & Tracking
-- Ticket Assignment
-- Status Management
-- Ticket Comments
-- Reports & Dashboard
+### 🎫 Ticket Lifecycle
+- Create → Open
+- Assign → In Progress
+- Resolve → Closed
+- Automatic tracking of:
+  - Created Date
+  - Assigned Date
+  - Updated Date
+  - Closed Date
 
 ---
 
-## 🛠️ Technology Stack
-- ASP.NET Core MVC (.NET 8)
-- C#
-- Entity Framework Core
-- SQL Server
-- Bootstrap 5
-- GitHub Codespaces
+### 🧩 Modules Implemented
+- User Authentication (Session-based)
+- Ticket Categories
+- Ticket Priorities
+- Ticket Management (Create, Assign, Update)
+- Role-based Dashboard
+- Clean UI using Bootstrap
 
 ---
 
-## 🗃️ Database Tables
-- Users
-- Roles
-- Tickets
-- TicketCategories
-- TicketPriorities
-- TicketAssignments
-- TicketComments
+## 🛠️ Tech Stack
+
+- **Backend:** ASP.NET Core MVC (.NET)
+- **ORM:** Entity Framework Core
+- **Database:** SQLite
+- **Frontend:** Razor Views + Bootstrap
+- **Authentication:** Session-based (Custom)
 
 ---
 
 ## 📂 Project Structure
-ITSupport
-├── Controllers
-├── Models
-├── Views
-├── Data
-├── wwwroot
+
+ITSupport/
+│
+├── Controllers/
+│ ├── AccountController.cs
+│ ├── HomeController.cs
+│ ├── TicketsController.cs
+│ └── TicketCategoriesController.cs
+│
+├── Models/
+│ ├── Ticket.cs
+│ ├── TicketCategory.cs
+│ ├── TicketPriority.cs
+│ └── TicketAttachment.cs
+│
+├── Data/
+│ └── ApplicationDbContext.cs
+│
+├── Views/
+│ ├── Home/
+│ ├── Tickets/
+│ ├── TicketCategories/
+│ └── Shared/
+│
+├── Migrations/
+├── wwwroot/
+├── appsettings.json
 └── Program.cs
 
----
 
-### Prerequisites
-- .NET SDK 8.0 or later
-- SQL Server / LocalDB
-- GitHub account
+
 
 ---
 
-### Run Using GitHub Codespaces
+## ⚙️ Prerequisites
 
+Make sure you have the following installed:
 
-
-
-Open in browser:
-https://localhost:5001
-
----
-
-## 🔮 Future Enhancements
-- Email notifications
-- File attachments
-- SLA tracking
-- Role-based dashboards
-- PDF / Excel reports
+- .NET SDK (latest stable)
+- Git
+- Visual Studio / VS Code / GitHub Codespaces
 
 ---
 
-## 👨‍💻 Developer
-Sahil Rathod  
-Junior ASP.NET Core Developer
+## ▶️ How to Run the Project
 
----
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/ITSupportTicketSystem.git
+cd ITSupportTicketSystem
 
-## 📄 License
-This project is developed for educational and learning purposes.
+dotnet restore
+dotnet ef database update
+dotnet run
+
+
+
+👤 Default Roles (Example)
+
+You can create users directly from the database or seed manually:
+
+Admin
+
+Support
+
+Technician
+
+Only Support users can create tickets.
+
+🔐 Security & Design Notes
+
+Role-based authorization enforced at controller + UI level
+
+System-controlled fields are never editable by users
+
+Ticket lifecycle strictly managed by backend logic
+
+Designed to be easily extendable (attachments, history, SLA)
+
+📈 Future Enhancements
+
+File attachments (upload & download)
+
+Ticket history / timeline
+
+Work Type & Environment master data
+
+Email notifications
+
+SLA tracking
+
+ASP.NET Identity authentication
+
+📄 License
+
+This project is created for learning, college projects, and demonstrations.
+You are free to modify and extend it.
+
+🙌 Author
+
+Rathod Sahil
+ASP.NET Core Developer
+GitHub: developershahil
+
+⭐ If you find this project useful, give it a star!
+
+
+
+
+
+
