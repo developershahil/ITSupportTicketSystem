@@ -28,17 +28,21 @@
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="TicketCategories" asp-action="Index">
-                            Ticket Categories
-                        </a>
-                    </li>
+                    <!-- Ticket Categories : ADMIN ONLY -->
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Tickets" asp-action="Index">
-                            Tickets
-                        </a>
-                    </li>
+
+<!-- Tickets : ALL LOGGED-IN USERS -->
+@if (Context.Session.GetString("UserRole") != null)
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Tickets"
+           asp-action="Index">
+            Tickets
+        </a>
+    </li>
+}
+
                 </ul>
 
                 <!-- RIGHT MENU -->

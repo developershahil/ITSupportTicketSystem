@@ -1,0 +1,38 @@
+@model ITSupport.Models.Ticket
+
+@{
+    ViewData["Title"] = "Assign Ticket";
+}
+
+<h2>Assign Ticket</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Assign" method="post">
+            <input type="hidden" name="id" value="@Model.TicketId" />
+
+            <div class="mb-3">
+                <label class="form-label">Ticket Title</label>
+                <input class="form-control" value="@Model.Title" disabled />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Assign to Technician</label>
+                <select name="AssignedTo"
+                        class="form-select"
+                        asp-items="ViewBag.Technicians"
+                        required>
+                    <option value="">-- Select Technician --</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Assign
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary ms-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>

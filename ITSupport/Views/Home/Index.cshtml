@@ -1,10 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
-    var role = ViewBag.Role as string;
+   var role = Context.Session.GetString("UserRole");
+
     var name = Context.Session.GetString("UserName");
 }
 
+
 <h2 class="mb-4">Welcome @name</h2>
+
+<div class="alert alert-info">
+    Role from session: @role
+</div>
+
 
 @if (role == "Admin")
 {
@@ -14,17 +21,28 @@
                 <div class="card-body">
                     <h5 class="card-title">Manage Users</h5>
                     <p>Add Customer Support & Technicians</p>
-                    <a href="/Users/Create" class="btn btn-primary">Add User</a>
+                    <a asp-controller="Users"
+   asp-action="Create"
+   class="btn btn-primary">
+   Add User
+</a>
+
                 </div>
             </div>
         </div>
+
 
         <div class="col-md-4">
             <div class="card shadow mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Ticket Categories</h5>
                     <p>Manage issue categories</p>
-                    <a href="/TicketCategories" class="btn btn-dark">View Categories</a>
+                    <a asp-controller="TicketCategories"
+   asp-action="Index"
+   class="btn btn-dark">
+   View Categories
+</a>
+
                 </div>
             </div>
         </div>
@@ -34,7 +52,12 @@
                 <div class="card-body">
                     <h5 class="card-title">All Tickets</h5>
                     <p>View and manage all tickets</p>
-                    <a href="/Tickets" class="btn btn-warning">View Tickets</a>
+                    <a asp-controller="Tickets"
+   asp-action="Index"
+   class="btn btn-warning">
+   View Tickets
+</a>
+
                 </div>
             </div>
         </div>
@@ -49,7 +72,12 @@
                 <div class="card-body">
                     <h5 class="card-title">Create Ticket</h5>
                     <p>Raise a new IT support ticket</p>
-                    <a href="/Tickets/Create" class="btn btn-success">Create Ticket</a>
+                    <a asp-controller="Tickets"
+   asp-action="Create"
+   class="btn btn-success">
+   Create Ticket
+</a>
+
                 </div>
             </div>
         </div>
@@ -59,14 +87,19 @@
                 <div class="card-body">
                     <h5 class="card-title">My Tickets</h5>
                     <p>Track your raised tickets</p>
-                    <a href="/Tickets" class="btn btn-info">My Tickets</a>
+                    <a asp-controller="Tickets"
+   asp-action="Index"
+   class="btn btn-info">
+   My Tickets
+</a>
+
                 </div>
             </div>
         </div>
     </div>
 }
 
-@if (role == "Technician")
+@if (string.Equals(role, "Technician", StringComparison.OrdinalIgnoreCase))
 {
     <div class="row">
         <div class="col-md-6">
@@ -74,12 +107,17 @@
                 <div class="card-body">
                     <h5 class="card-title">Assigned Tickets</h5>
                     <p>View and update assigned tickets</p>
-                    <a href="/Tickets" class="btn btn-warning">View Tickets</a>
+                    <a asp-controller="Tickets"
+                       asp-action="Index"
+                       class="btn btn-warning">
+                        View Tickets
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 }
+
 
 @if (string.IsNullOrEmpty(role))
 {
