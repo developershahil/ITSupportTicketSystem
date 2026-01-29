@@ -28,20 +28,6 @@
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
 
-                    <!-- Ticket Categories : ADMIN ONLY -->
-
-
-<!-- Tickets : ALL LOGGED-IN USERS -->
-@if (Context.Session.GetString("UserRole") != null)
-{
-    <li class="nav-item">
-        <a class="nav-link"
-           asp-controller="Tickets"
-           asp-action="Index">
-            Tickets
-        </a>
-    </li>
-}
 
                 </ul>
 
