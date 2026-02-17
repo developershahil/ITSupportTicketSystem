@@ -1,46 +1,41 @@
-using ITSupport.Data;
+using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using ITSupport.Models;
+using ITSupport.Services;
 
 namespace ITSupport.Controllers
 {
-    public class AccountController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IPasswordHashService _passwordHashService;
 
-        public AccountController(ApplicationDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, IPasswordHashService passwordHashService)
         {
-            _context = context;
+            _userManager = userManager;
+            _passwordHashService = passwordHashService;
         }
 
-        public IActionResult Login()
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
-        {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == email && x.Password == password && x.IsActive);
-
+            var user = await _userManager.FindByNameAsync(model.Username);
             if (user == null)
             {
-                ViewBag.Error = "Invalid Email or Password";
-                return View();
+                return Unauthorized();
             }
 
-            HttpContext.Session.SetString("UserRole", user.Role);
-            HttpContext.Session.SetString("UserName", user.FullName);
-            HttpContext.Session.SetInt32("UserId", user.UserId);
+            bool isPasswordValid = _passwordHashService.VerifyPassword(model.Password, user.PasswordHash);
+            if (!isPasswordValid)
+            {
+                return Unauthorized();
+            }
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            // Authentication logic goes here
+            return Ok();
         }
     }
 }
